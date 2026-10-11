@@ -190,7 +190,9 @@ function doorScene({ gsap }) {
       onUpdate: (self) => document.body.classList.toggle("is-revealed", self.progress > 0.85),
     },
   });
-  tl.fromTo(".door__photo", { scale: 1.22 }, { scale: 1, duration: 1.2 }, 0)
+  // small start zoom on phones: scaling a photo up is what makes it look soft
+  const startZoom = matchMedia("(max-width: 800px)").matches ? 1.05 : 1.22;
+  tl.fromTo(".door__photo", { scale: startZoom }, { scale: 1, duration: 1.2 }, 0)
     // zoom into the bar of the 7: the cut-out grows until the whole screen is the room
     .to(".door__num", { scale: 46, svgOrigin: "810 287", ease: "power3.in", duration: 1.2 }, 0)
     .to(".door__intro", { opacity: 0, y: -20, duration: 0.2 }, 0)

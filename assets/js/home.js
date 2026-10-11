@@ -72,6 +72,7 @@ $("[data-lang-toggle]").addEventListener("click", () => {
   applyStatic();
   buildDynamicMotion();
   window.ScrollTrigger?.refresh();
+  warmImages();
 });
 
 // ---------- rooms (from data.js)
@@ -177,6 +178,9 @@ function initQuickBook() {
 // ---------- motion
 const motionOk = () => window.gsap && window.ScrollTrigger && !reducedMotion;
 const state = { statement: null, rooms: [], bars: [] };
+// Lenis already eases the scroll on desktop, so the scenes follow it exactly (a second smoothing layer feels floaty);
+// touch scrolls natively, where a short catch-up hides the jitter of pinned scenes
+const SCRUB = matchMedia("(hover: hover) and (pointer: fine)").matches ? true : 0.4;
 
 function doorScene({ gsap }) {
   // intro: the three numerals draw themselves, uncovering the room through them
@@ -186,7 +190,7 @@ function doorScene({ gsap }) {
   const tl = gsap.timeline({
     defaults: { ease: "none" },
     scrollTrigger: {
-      trigger: "[data-door]", start: "top top", end: "+=170%", scrub: 0.7, pin: ".door__stage", anticipatePin: 1,
+      trigger: "[data-door]", start: "top top", end: "+=170%", scrub: SCRUB, pin: ".door__stage", anticipatePin: 1,
       onUpdate: (self) => document.body.classList.toggle("is-revealed", self.progress > 0.85),
     },
   });
@@ -200,15 +204,24 @@ function doorScene({ gsap }) {
     .fromTo(".door__reveal > *", { y: 36, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.07, duration: 0.3 }, 0.78);
 }
 
+const COARSE_STEPS = 120;
+const FINE_STEPS = 24;
+// position along the path closest to (x, y): a coarse pass over the whole path, then a fine pass around the best sample
+// (getPointAtLength is slow on long paths; this is about 150 calls per stop instead of 600)
 function lengthNear(path, total, x, y) {
-  let best = { d: Infinity, at: 0 };
-  for (let i = 0; i <= 600; i++) {
-    const at = (total * i) / 600;
-    const p = path.getPointAtLength(at);
-    const d = (p.x - x) ** 2 + (p.y - y) ** 2;
-    if (d < best.d) best = { d, at };
-  }
-  return best.at;
+  const scan = (from, to, steps) => {
+    let best = { d: Infinity, at: from };
+    for (let i = 0; i <= steps; i++) {
+      const at = from + ((to - from) * i) / steps;
+      const p = path.getPointAtLength(at);
+      const d = (p.x - x) ** 2 + (p.y - y) ** 2;
+      if (d < best.d) best = { d, at };
+    }
+    return best.at;
+  };
+  const coarse = scan(0, total, COARSE_STEPS);
+  const reach = total / COARSE_STEPS;
+  return scan(Math.max(0, coarse - reach), Math.min(total, coarse + reach), FINE_STEPS * 2);
 }
 
 function routeScene({ ScrollTrigger }) {
@@ -222,6 +235,7 @@ function routeScene({ ScrollTrigger }) {
   });
   const steps = $$("[data-route-step]");
   const marker = $(".map__marker");
+  let reachedCount = -1;
   const draw = (progress) => {
     const p = Math.min(1, Math.max(0, (progress - 0.04) / 0.92)); // short pauses at both ends
     path.style.strokeDashoffset = String(total * (1 - p));
@@ -229,6 +243,9 @@ function routeScene({ ScrollTrigger }) {
     marker.setAttribute("cx", point.x);
     marker.setAttribute("cy", point.y);
     const reached = stops.map((s) => p >= s.at - 0.001);
+    const count = reached.filter(Boolean).length;
+    if (count === reachedCount) return; // class changes only when a stop is crossed, not on every scroll tick
+    reachedCount = count;
     const here = reached.lastIndexOf(true);
     stops.forEach((s, i) => s.g.classList.toggle("is-on", reached[i]));
     steps.forEach((s, i) => { s.classList.toggle("is-on", reached[i]); s.classList.toggle("is-here", i === here); });
@@ -243,7 +260,7 @@ function galleryScene({ gsap }) {
   const distance = () => Math.max(0, track.scrollWidth - innerWidth);
   const SCROLL_PER_PIXEL = 0.55; // the strip glides faster than the page scrolls, so nine photos do not take six screens
   gsap.matchMedia().add("(min-width: 801px)", () => {
-    gsap.to(track, { x: () => -distance(), ease: "none", scrollTrigger: { trigger: ".gallery", start: "top top", end: () => `+=${Math.round(distance() * SCROLL_PER_PIXEL)}`, pin: ".gallery__pin", scrub: 0.5, invalidateOnRefresh: true } });
+    gsap.to(track, { x: () => -distance(), ease: "none", scrollTrigger: { trigger: ".gallery", start: "top top", end: () => `+=${Math.round(distance() * SCROLL_PER_PIXEL)}`, pin: ".gallery__pin", scrub: SCRUB, invalidateOnRefresh: true } });
   });
 }
 
@@ -285,12 +302,24 @@ function buildDynamicMotion() {
     gsap.fromTo(bar, { scaleX: 0 }, { scaleX: Number(bar.dataset.v), duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: bar, start: "top 92%", once: true } }));
 }
 
+// Below-the-fold photos are fetched and decoded once the page is idle, so a room or a gallery slide never pops in
+// (or stalls the scroll for a decode) while it moves into view.
+function warmImages() {
+  const warm = () => $$(".room__img img, .gal img").forEach((img) => {
+    img.loading = "eager";
+    img.decode().catch(() => {}); // a failed decode just means the browser decodes on first paint, as before
+  });
+  if ("requestIdleCallback" in window) requestIdleCallback(warm, { timeout: 4000 });
+  else setTimeout(warm, 2000);
+}
+
 function initMotion() {
   if (!motionOk()) {
     document.documentElement.classList.add("no-gsap"); // end state, no pinned scenes
     return;
   }
   const libs = { gsap: window.gsap, ScrollTrigger: window.ScrollTrigger };
+  libs.ScrollTrigger.config({ ignoreMobileResize: true }); // the address bar collapsing must not rebuild the pinned scenes
   doorScene(libs);
   routeScene(libs);
   galleryScene(libs);
@@ -298,7 +327,7 @@ function initMotion() {
   // headings rise into place once, the marquee slides with the scroll
   $$(".display").filter((el) => !el.closest(".door")).forEach((el) =>
     libs.gsap.from(el, { y: 48, opacity: 0, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 88%", once: true } }));
-  libs.gsap.to("[data-marquee]", { xPercent: -50, ease: "none", scrollTrigger: { trigger: ".marquee", start: "top bottom", end: "bottom top", scrub: 0.6 } });
+  libs.gsap.to("[data-marquee]", { xPercent: -50, ease: "none", scrollTrigger: { trigger: ".marquee", start: "top bottom", end: "bottom top", scrub: SCRUB } });
   buildDynamicMotion();
   const refresh = () => libs.ScrollTrigger.refresh();
   document.fonts?.ready.then(refresh);
@@ -308,3 +337,4 @@ function initMotion() {
 applyStatic();
 initQuickBook();
 initMotion();
+addEventListener("load", warmImages);

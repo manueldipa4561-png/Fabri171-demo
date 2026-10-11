@@ -11,7 +11,7 @@
 
 /* ---------- 1. the door */
 .door__stage { position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: var(--paper); }
-.door__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; }
+.door__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; will-change: transform; }
 .door__shade { position: absolute; inset: 0; opacity: 0; background: linear-gradient(180deg, rgb(28 24 20 / 0.42), rgb(28 24 20 / 0) 24%, rgb(28 24 20 / 0.22) 44%, rgb(28 24 20 / 0.62) 64%, rgb(28 24 20 / 0.9)); }
 .door__cover { position: absolute; top: 50%; left: 50%; display: none; width: 100vw; height: auto; aspect-ratio: 16 / 9; overflow: visible; pointer-events: none; transform: translate(-50%, -50%); }
 .door__paper { fill: var(--paper); }
@@ -89,7 +89,7 @@
 .room__img img { width: 100%; height: 100%; object-fit: cover; }
 .room__body { display: flex; flex-direction: column; justify-content: space-between; gap: 18px; padding: clamp(8px, 1.4vw, 24px) clamp(8px, 1.4vw, 24px) clamp(8px, 1.4vw, 24px) 0; }
 .room__name { margin: 0; font: 400 clamp(52px, 7vw, 120px) / 0.92 var(--serif); letter-spacing: -0.02em; }
-.room__type { margin: 10px 0 0; }
+.room__type { margin: 10px 0 8px; }
 .room__blurb { max-width: 40ch; margin: 18px 0 0; font-size: clamp(16px, 1.25vw, 19px); }
 .room__feat { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .room__feat li { padding: 6px 12px; border-radius: 99px; background: color-mix(in srgb, var(--ink) 8%, transparent); font-size: 13px; }
@@ -98,6 +98,7 @@
 .room__price b { font: 400 clamp(34px, 3.4vw, 52px) / 1 var(--serif); }
 .room__price small { color: color-mix(in srgb, var(--ink) 72%, transparent); }
 .room .btn { justify-self: start; }
+@media (min-width: 801px) { .room, .room__img img { will-change: transform; } } /* both are scrubbed by the scroll: own layers, no repaint per frame */
 @media (max-width: 800px) {
   .room { position: relative; top: auto; grid-template-columns: 1fr; min-height: 0; margin-bottom: 20px; }
   .room__img { aspect-ratio: 4 / 3; }
@@ -117,8 +118,9 @@
 .no-gsap .gal, .no-motion .gal { scroll-snap-align: center; }
 @media (max-width: 800px) {
   .gallery__pin { min-height: 0; overflow: visible; padding-block: 4svh; }
-  .gallery__track { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
-  .gal { height: 46svh; scroll-snap-align: center; }
+  .gallery__track { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); padding-bottom: 12px; }
+  /* a photo is never wider than the screen, and the row opens on the first one instead of centred on it */
+  .gal { width: min(calc(46svh * var(--ar)), 86vw); height: 46svh; aspect-ratio: auto; scroll-snap-align: start; }
 }
 
 /* ---------- 5. direct vs portal */
@@ -204,6 +206,22 @@
 .marquee__track { display: flex; width: max-content; will-change: transform; }
 .marquee__group { display: flex; align-items: center; gap: clamp(24px, 4vw, 64px); padding-right: clamp(24px, 4vw, 64px); font: 400 clamp(40px, 6.5vw, 104px) / 1.1 var(--serif); letter-spacing: -0.02em; white-space: nowrap; }
 .marquee__group i { color: var(--terra); font-weight: 300; }
+
+/* ---------- demo tab: opens the owner panel (left edge, rotated, never over the page content) */
+.owner-tab {
+  position: fixed; top: 50%; left: 0; z-index: 70; padding: 14px 6px; border-radius: 0 12px 12px 0; background: var(--ink); color: var(--paper);
+  font: 500 11px / 1 var(--mono); letter-spacing: 0.08em; text-decoration: none; text-transform: uppercase; white-space: nowrap;
+  writing-mode: vertical-rl; transform: translateY(-50%) rotate(180deg); box-shadow: 0 10px 30px -10px rgb(28 24 20 / 0.5);
+  transition: padding 0.4s var(--ease), background-color 0.3s;
+}
+.owner-tab::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-top: 8px; border-radius: 50%; background: var(--honey); }
+.owner-tab:hover, .owner-tab:focus-visible { padding-inline: 9px; background: var(--terra); }
+/* narrower than the side gutters allow: the tab would cover the first letters of the text, so it becomes a pill at the bottom */
+@media (max-width: 1100px) {
+  .owner-tab { top: auto; bottom: 14px; left: 14px; padding: 10px 14px 10px 12px; border-radius: 99px; writing-mode: horizontal-tb; transform: none; }
+  .owner-tab::before { margin: 0 8px 1px 0; }
+  .owner-tab:hover, .owner-tab:focus-visible { padding-inline: 14px 14px; }
+}
 
 /* ---------- custom cursor (desktop pointers only) */
 .cursor { position: fixed; top: 0; left: 0; z-index: 90; display: grid; place-items: center; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--terra); color: var(--paper); opacity: 0; pointer-events: none; transition: width 0.5s var(--ease), height 0.5s var(--ease), margin 0.5s var(--ease), opacity 0.3s; }

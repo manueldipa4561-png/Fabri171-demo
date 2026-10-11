@@ -221,7 +221,7 @@
     display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 58px; padding: 0 22px;
     border: 2px solid transparent; border-radius: 99px;
     background: linear-gradient(var(--ink), var(--ink)) padding-box, var(--thread) border-box; background-size: auto, 200% 100%;
-    color: var(--paper); font-size: 13px; text-decoration: none; animation: thread-border 6s linear infinite;
+    color: var(--paper); font-size: 13px; text-decoration: none;
   }
   .mobile-total b { font: 400 28px/1 var(--serif); white-space: nowrap; }
 }

@@ -44,8 +44,10 @@ a { color: inherit; }
 .display, .section-head__lead, .statement__text { text-wrap: balance; }
 
 /* the thread: a thin line in the tile blue, rattan and terracotta of the rooms, used for progress and accents */
-.thread { display: block; height: 2px; background: var(--thread); background-size: 200% 100%; animation: thread 8s linear infinite; }
-@keyframes thread { to { background-position: -200% 0; } }
+.thread { position: relative; display: block; height: 2px; overflow: hidden; }
+/* the gradient sits on a wider layer that slides on the compositor: animating background-position repaints the page every frame, even idle */
+.thread::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 400%; background: var(--thread); background-size: 50% 100%; will-change: transform; animation: thread 8s linear infinite; }
+@keyframes thread { to { transform: translateX(-50%); } }
 @keyframes thread-border { to { background-position: 0 0, -200% 0; } }
 
 /* ---------- buttons */
@@ -64,8 +66,9 @@ a { color: inherit; }
 .btn--xl { padding: 1.2em 2.1em; font-size: 18px; }
 .btn--thread {
   border: 2px solid transparent; background: linear-gradient(var(--ink), var(--ink)) padding-box, var(--thread) border-box;
-  background-size: auto, 200% 100%; animation: thread-border 8s linear infinite;
+  background-size: auto, 200% 100%; animation: thread-border 8s linear infinite paused; /* runs only on hover/focus: a looping repaint on every button costs frames */
 }
+.btn--thread:hover, .btn--thread:focus-visible { animation-play-state: running; }
 
 /* ---------- nav */
 .nav {
@@ -81,7 +84,9 @@ a { color: inherit; }
 .nav--over:not(.is-scrolled) .nav__num { color: var(--honey); }
 .nav__logo small { margin-left: 4px; font: 500 10px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
 .nav__links { display: flex; gap: 26px; font-size: 14px; }
-.nav__links a { position: relative; padding: 6px 0; text-decoration: none; }
+.nav__links a { position: relative; padding: 6px 0; text-decoration: none; white-space: nowrap; }
+/* between the burger breakpoint and a wide desktop the bar is tight: smaller gaps and no "Pescara" tag instead of wrapping the links onto two lines */
+@media (max-width: 1240px) { .nav { gap: 16px; } .nav__links { gap: 16px; } .nav__logo small { display: none; } }
 .nav__links a::after { content: ""; position: absolute; inset: auto 0 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform 0.5s var(--ease); }
 .nav__links a:hover::after { transform: scaleX(1); transform-origin: left; }
 .nav__burger { display: none; min-height: 44px; padding: 0 18px; border: 1px solid currentColor; border-radius: 99px; background: transparent; color: inherit; font: 500 14px/1 var(--sans); cursor: pointer; }
@@ -111,6 +116,6 @@ body.menu-open .nav { color: var(--paper); background: transparent; backdrop-fil
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .thread, .btn--thread { animation: none; }
+  .thread::before, .btn--thread { animation: none; }
   .btn, .btn span, .nav__links a::after { transition: none; }
 }

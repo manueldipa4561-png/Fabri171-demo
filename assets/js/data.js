@@ -39,7 +39,7 @@ export const ROOMS = [
     dark: false,
     blurb: "Il punto di partenza giusto: letto matrimoniale (o due singoli), scrivania, aria condizionata e un bagno privato con doccia walk-in e bidet. Dalla stazione al mare si fa tutto a piedi.",
     features: ["Aria condizionata", "Bagno privato con bidet", "Scrivania", "TV satellitare"],
-    images: ["economy-1", "economy-2", "economy-3"],
+    images: ["bed"], // concept images from Higgsfield (see README): swap in the owner's photos
     en: {
       type: "Economy double or twin",
       bed: "Double bed or two singles",
@@ -59,7 +59,7 @@ export const ROOMS = [
     dark: false,
     blurb: "Per tre: un letto king (o due singoli) e un divano letto, con lo spazio che gli ospiti ricordano. Accappatoi e biancheria sempre pronti.",
     features: ["Divano letto", "Accappatoi", "Bagno privato con bidet", "Aria condizionata"],
-    images: ["triple-1", "triple-2", "triple-3"],
+    images: ["hero"],
     en: {
       type: "Comfort triple",
       bed: "King bed + sofa bed, or two singles + sofa bed",
@@ -79,7 +79,7 @@ export const ROOMS = [
     dark: false,
     blurb: "Per famiglie e piccoli gruppi: letto king (o due singoli) e due divani letto. Culla gratuita su richiesta e bollitore in camera.",
     features: ["Due divani letto", "Culla gratuita su richiesta", "Bollitore", "Aria condizionata"],
-    images: ["quad-1", "quad-2", "quad-3"],
+    images: ["hero"],
     en: {
       type: "Quadruple",
       bed: "King bed + 2 sofa beds, or two singles + 2 sofa beds",

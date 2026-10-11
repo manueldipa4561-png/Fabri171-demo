@@ -6,7 +6,7 @@ export const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matc
 // ---------- WhatsApp: messaggio già scritto con camera, date e ospiti
 const WA_TEXT = {
   it: { base: "Ciao, vorrei prenotare da Borghese", room: " la camera {room}", dates: " dal {in} al {out}", guests: " per {n} {w}", ask: ". È disponibile? Grazie!", askAny: ". Potete dirmi la disponibilità? Grazie!", one: "persona", many: "persone" },
-  en: { base: "Hi, I'd like to book at Borghese", room: " the {room} room", dates: " from {in} to {out}", guests: " for {n} {w}", ask: ". Is it available? Thank you!", askAny: ". Could you tell me what's available? Thank you!", one: "guest", many: "guests" },
+  en: { base: "Hi, I'd like to book at Fabrì 171", room: " the {room} room", dates: " from {in} to {out}", guests: " for {n} {w}", ask: ". Is it available? Thank you!", askAny: ". Could you tell me what's available? Thank you!", one: "guest", many: "guests" },
 };
 const waDate = (iso) => iso.split("-").reverse().join("/"); // 2026-11-15 → 15/11/2026
 const fill = (tpl, vars) => tpl.replace(/\{(\w+)\}/g, (_, k) => vars[k]);
@@ -106,7 +106,7 @@ function initMenu(lenis) {
   const setOpen = (open) => {
     menu.hidden = !open;
     button.setAttribute("aria-expanded", String(open));
-    button.textContent = open ? "Chiudi" : "Menu";
+    button.textContent = (open ? button.dataset.close : button.dataset.open) ?? (open ? "Chiudi" : "Menu");
     document.body.classList.toggle("menu-open", open);
     open ? lenis?.stop() : lenis?.start();
   };

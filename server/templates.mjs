@@ -1,7 +1,8 @@
 // WhatsApp message copy. Placeholders look like {name}; each template lists its variables in `order`,
 // which maps to Meta's positional {{1}}, {{2}}… when you submit the template for approval (category: utility).
 // Messages sent first by the business must use an approved template; free text only works inside the
-// 24-hour window after the guest writes. Copy below is a DEMO proposal: confirm the check-in procedure with the owner.
+// 24-hour window after the guest writes. Meta also rejects templates that start or end with a variable, so every text
+// below begins and ends with words (a test enforces it). Copy is a DEMO proposal: confirm the check-in procedure with the owner.
 
 const ACCESS = {
   it: "Siamo al civico 171, scala C. Quando sei a circa 10 minuti scrivici qui: un nostro host ti aspetta e ti accompagna in camera.",
@@ -18,8 +19,8 @@ export const TEMPLATES = {
   },
   pre_arrival: {
     order: ["name", "property", "address", "window", "access", "maps"],
-    it: "Ciao {name}, manca poco! Ti aspettiamo da {property}, {address}. Check-in {window}. {access} Rispondi a questo messaggio con il tuo orario di arrivo, così troviamo tutto pronto. Mappa: {maps}",
-    en: "Hi {name}, almost there! We look forward to welcoming you at {property}, {address}. Check-in {window}. {access} Reply to this message with your arrival time so everything is ready. Map: {maps}",
+    it: "Ciao {name}, manca poco! Ti aspettiamo da {property}, {address}. Check-in {window}. {access} Rispondi a questo messaggio con il tuo orario di arrivo, così troviamo tutto pronto. Mappa: {maps} A presto!",
+    en: "Hi {name}, almost there! We look forward to welcoming you at {property}, {address}. Check-in {window}. {access} Reply to this message with your arrival time so everything is ready. Map: {maps} See you soon!",
   },
   checkin_day: {
     order: ["name", "window", "address", "access"],

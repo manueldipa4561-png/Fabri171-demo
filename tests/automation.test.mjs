@@ -68,6 +68,7 @@ test("every template is complete in both languages and maps to Meta's positional
       assert.deepEqual(used, [...t.order].sort(), `${kind}.${lang}: placeholders and "order" differ`);
       assert.doesNotMatch(metaText(kind, lang), /\{[a-z]/i);
       assert.match(metaText(kind, lang), /\{\{1\}\}/);
+      assert.doesNotMatch(t[lang], /^\{|\}$/, `${kind}.${lang}: Meta rejects templates that start or end with a variable`);
     }
   }
   assert.equal(render("Ciao {name}", { name: "Mario" }), "Ciao Mario");

@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fabrì 171 — Guest house a Pescara, tra la stazione e il mare</title>
+  <meta name="description" content="Guest house a Pescara, a quattro minuti dalla spiaggia e a ottocento metri dalla stazione. Prenota direttamente, senza commissioni: le istruzioni di arrivo ti arrivano su WhatsApp.">
+  <meta name="theme-color" content="#f1e9dc">
+  <meta property="og:title" content="Fabrì 171 — Guest house a Pescara">
+  <meta property="og:description" content="Tra la stazione e il mare. Prenota diretto, senza commissioni.">
+  <meta property="og:image" content="assets/img/hero-1600.jpg">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Instrument+Sans:wght@400..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/home.css">
+  <link rel="preload" as="image" href="assets/img/hero-1600.jpg" imagesrcset="assets/img/hero-800.jpg 800w, assets/img/hero-1600.jpg 1600w" imagesizes="100vw">
+  <script>
+    document.documentElement.classList.add("js");
+    // if the scripts never start (offline, blocked), show the plain page instead of an empty hero
+    setTimeout(() => { if (!window.__home) document.documentElement.classList.add("no-motion"); }, 5000);
+  </script>
+</head>
+<body class="page-home">
+  <a class="skip" href="#main" data-i18n="skip">Salta al contenuto</a>
+
+  <header class="nav" data-nav>
+    <span class="thread nav__progress" data-progress style="--p:0"></span>
+    <a class="nav__logo" href="#top" aria-label="Fabrì 171, Pescara">Fabrì<span class="nav__num">171</span><small>Pescara</small></a>
+    <nav class="nav__links" aria-label="Principale">
+      <a href="#porta" data-i18n="navPorta">La porta</a>
+      <a href="#percorso" data-i18n="navPercorso">Il percorso</a>
+      <a href="#camere" data-i18n="navCamere">Camere</a>
+      <a href="#diretto" data-i18n="navDiretto">Diretto</a>
+      <a href="#recensioni" data-i18n="navRecensioni">Recensioni</a>
+      <a href="#info" data-i18n="navInfo">Info</a>
+    </nav>
+    <button class="btn btn--ghost btn--sm lang" type="button" data-lang-toggle lang="en">English</button>
+    <a class="btn btn--sm btn--thread" href="prenota.html" data-i18n="navBook">Prenota diretto</a>
+    <button class="nav__burger" type="button" aria-expanded="false" aria-controls="menu" data-i18n="menuOpen">Menu</button>
+  </header>
+
+  <div class="menu" id="menu" hidden>
+    <nav aria-label="Menu">
+      <a href="#porta" data-i18n="navPorta">La porta</a>
+      <a href="#percorso" data-i18n="navPercorso">Il percorso</a>
+      <a href="#camere" data-i18n="navCamere">Camere</a>
+      <a href="#diretto" data-i18n="navDiretto">Diretto</a>
+      <a href="#recensioni" data-i18n="navRecensioni">Recensioni</a>
+      <a href="#info" data-i18n="navInfo">Info</a>
+      <a class="btn btn--light menu__book" href="prenota.html" data-i18n="navBook">Prenota diretto</a>
+    </nav>
+  </div>
+
+  <main id="main">
+    <!-- 1. the door: the "171" is a window onto the room; scrolling zooms through it -->
+    <section class="door" id="top" data-door aria-labelledby="hero-title">
+      <div class="door__stage">
+        <img class="door__photo" src="assets/img/hero-1600.jpg" srcset="assets/img/hero-800.jpg 800w, assets/img/hero-1600.jpg 1600w, assets/img/hero-full.jpg 2048w" sizes="100vw" width="2048" height="1360" alt="Immagine concept: camera con biancheria in lino, vassoio di rattan con caffè e cornetto, pavimento in cementine e luce del mattino" fetchpriority="high">
+        <div class="door__shade"></div>
+        <svg class="door__cover" viewBox="0 0 1600 900" aria-hidden="true" focusable="false">
+          <defs>
+            <mask id="door-mask" maskUnits="userSpaceOnUse" x="-6000" y="-6000" width="13600" height="12900">
+              <rect x="-6000" y="-6000" width="13600" height="12900" fill="#fff"/>
+              <g class="door__num" fill="none" stroke="#000" stroke-width="118" stroke-linejoin="bevel">
+                <path d="M520 335 L590 275 V685"/>
+                <path d="M700 287 H920 L785 685"/>
+                <path d="M1010 335 L1080 275 V685"/>
+              </g>
+            </mask>
+          </defs>
+          <rect class="door__paper" x="-6000" y="-6000" width="13600" height="12900" mask="url(#door-mask)"/>
+        </svg>
+        <div class="door__intro">
+          <p class="eyebrow" data-i18n="heroEyebrow">Pescara · Via Nicola Fabrizi 171, scala C</p>
+          <p class="door__hint mono"><span data-i18n="heroHint">Scorri per entrare</span> <span aria-hidden="true">↓</span></p>
+        </div>
+        <div class="door__reveal">
+          <p class="door__score mono"><span class="thread"></span><span data-i18n="heroScore">Posizione 9,5 su Booking.com</span></p>
+          <h1 id="hero-title" class="display" data-i18n-html="heroTitle">La porta giusta, <em>tra la stazione e il mare.</em></h1>
+          <p class="door__sub" data-i18n="heroSub">Camere con lino e cementine a quattro minuti dalla spiaggia. Prenoti qui, senza commissioni, e ti scriviamo su WhatsApp.</p>
+          <form class="quick" action="prenota.html" method="get" data-quick>
+            <label><span data-i18n="qbArrival">Arrivo</span><input type="date" name="arrivo" required></label>
+            <label><span data-i18n="qbDeparture">Partenza</span><input type="date" name="partenza" required></label>
+            <label><span data-i18n="qbGuests">Ospiti</span>
+              <select name="adulti">
+                <option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option>
+                <option value="5">5</option><option value="6">6</option>
+              </select>
+            </label>
+            <input type="hidden" name="lang" value="it">
+            <button class="btn btn--light" type="submit"><span data-i18n="qbGo">Cerca camere</span> <span aria-hidden="true">→</span></button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. statement -->
+    <section class="statement" id="porta" aria-labelledby="st-label">
+      <p class="eyebrow" id="st-label" data-i18n="stEyebrow">Il civico 171</p>
+      <p class="statement__text" data-words data-i18n="stText">Una porta al civico 171, scala C. Dentro: lino, cementine e camere che sanno di casa. Fuori: la stazione a ottocento metri e il mare a quattro minuti.</p>
+    </section>
+
+    <!-- 3. route walkthrough: the line draws itself as you scroll -->
+    <section class="route" id="percorso" data-route aria-labelledby="route-title">
+      <div class="route__pin">
+        <div class="route__copy">
+          <p class="eyebrow" data-i18n="rtEyebrow">Il percorso</p>
+          <h2 id="route-title" class="display" data-i18n-html="rtTitle">Dalla stazione al mare, <em>passando da noi.</em></h2>
+          <p class="route__lead" data-i18n="rtLead">Tutto si fa a piedi. Distanze dalla nostra porta, ricavate dalle schede pubbliche: approssimative e fuori scala.</p>
+          <ol class="route__steps">
+            <li data-route-step><span class="route__n mono">01</span><b data-i18n="rt1t">Stazione di Pescara</b><small data-i18n="rt1d">800 m · circa 10 minuti</small></li>
+            <li data-route-step><span class="route__n mono">02</span><b data-i18n="rt2t">Fabrì 171</b><small data-i18n="rt2d">Via Nicola Fabrizi 171, scala C</small></li>
+            <li data-route-step><span class="route__n mono">03</span><b data-i18n="rt3t">Piazza della Rinascita</b><small data-i18n="rt3d">2 minuti a piedi</small></li>
+            <li data-route-step><span class="route__n mono">04</span><b data-i18n="rt4t">Spiaggia e Lungomare</b><small data-i18n="rt4d">4 minuti a piedi</small></li>
+            <li data-route-step><span class="route__n mono">05</span><b data-i18n="rt5t">Ponte del Mare</b><small data-i18n="rt5d">circa 1 km</small></li>
+          </ol>
+        </div>
+        <figure class="route__map">
+          <svg viewBox="0 0 800 560" role="img" data-i18n-aria="rtMap" aria-label="Schema del percorso">
+            <defs>
+              <pattern id="tiles" width="80" height="80" patternUnits="userSpaceOnUse">
+                <rect width="80" height="80" fill="#f8f3ea"/>
+                <g fill="none" stroke="#2d4a66" stroke-width="2" opacity=".28"><circle cx="40" cy="40" r="26"/><circle cx="40" cy="40" r="12"/></g>
+                <g fill="#c58f4e" opacity=".35"><circle cx="0" cy="0" r="9"/><circle cx="80" cy="0" r="9"/><circle cx="0" cy="80" r="9"/><circle cx="80" cy="80" r="9"/></g>
+              </pattern>
+            </defs>
+            <rect width="800" height="560" rx="28" fill="url(#tiles)"/>
+            <g class="map__sea" fill="none" stroke="#2d4a66" stroke-width="2.5" stroke-linecap="round" opacity=".5">
+              <path d="M690 330 q18 -14 36 0 t36 0"/><path d="M670 372 q18 -14 36 0 t36 0 t36 0"/><path d="M700 414 q18 -14 36 0 t36 0"/><path d="M676 456 q18 -14 36 0 t36 0 t36 0"/>
+            </g>
+            <g class="map__rail" fill="none" stroke="#8a7a68" stroke-width="2" stroke-dasharray="3 9" opacity=".7"><path d="M34 380 V520"/><path d="M46 380 V520"/></g>
+            <path class="map__base" d="M70 450 C150 450 210 330 300 300 S410 230 460 250 S560 340 620 330 S720 210 730 130" fill="none" stroke="#1c1814" stroke-opacity=".12" stroke-width="10" stroke-linecap="round"/>
+            <path class="map__path" d="M70 450 C150 450 210 330 300 300 S410 230 460 250 S560 340 620 330 S720 210 730 130" fill="none" stroke="#b5573a" stroke-width="10" stroke-linecap="round"/>
+            <g class="map__nodes" font-family="DM Mono, monospace" font-size="15" fill="#1c1814">
+              <g data-node="70 450"><circle cx="70" cy="450" r="11"/><text x="70" y="486" text-anchor="middle" data-i18n="mapStation">Stazione</text></g>
+              <g data-node="300 300" class="map__home"><circle cx="300" cy="300" r="26"/><text x="300" y="306" text-anchor="middle" class="map__171">171</text></g>
+              <g data-node="460 250"><circle cx="460" cy="250" r="11"/><text x="460" y="224" text-anchor="middle" data-i18n="rt3t">Piazza della Rinascita</text></g>
+              <g data-node="620 330"><circle cx="620" cy="330" r="11"/><text x="620" y="364" text-anchor="middle" data-i18n="mapBeach">Spiaggia</text></g>
+              <g data-node="730 130"><circle cx="730" cy="130" r="11"/><text x="770" y="100" text-anchor="end" data-i18n="rt5t">Ponte del Mare</text></g>
+            </g>
+            <circle class="map__marker" r="9" cx="70" cy="450"/>
+          </svg>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 4. rooms: stacking cards, drawn from data.js -->
+    <section class="rooms" id="camere" aria-labelledby="rooms-title">
+      <header class="section-head">
+        <p class="eyebrow" data-i18n="rmEyebrow">Camere</p>
+        <h2 id="rooms-title" class="display" data-i18n-html="rmTitle">Tre camere, <em>una scala C.</em></h2>
+        <p class="section-head__lead" data-i18n="rmLead">Tariffe dimostrative. Prenotando dal sito il prezzo è circa il 10% più basso che sui portali.</p>
+      </header>
+      <div class="rooms__stack" data-rooms></div>
+      <p class="fineprint mono" data-i18n="rmImgNote">Immagine concept: sostituire con le foto reali della struttura.</p>
+    </section>
+
+    <!-- 5. direct vs portal, with the real booking engine behind the numbers -->
+    <section class="direct" id="diretto" aria-labelledby="direct-title">
+      <div class="direct__copy">
+        <p class="eyebrow" data-i18n="dxEyebrow">Prenota diretto</p>
+        <h2 id="direct-title" class="display" data-i18n-html="dxTitle">Stesso letto, <em>senza commissioni.</em></h2>
+        <p class="section-head__lead" data-i18n="dxLead">I portali trattengono circa il 15% di ogni prenotazione. Dal sito quella quota non esce dalla struttura e noi ne restituiamo una parte a te.</p>
+      </div>
+      <form class="calc" data-calc aria-label="Calcolatore">
+        <label class="calc__field"><span class="mono" data-i18n="dxRoom">Camera</span><select data-calc-room></select></label>
+        <label class="calc__field"><span class="mono"><span data-i18n="dxNights">Notti</span>: <output data-calc-n>2</output></span><input type="range" min="1" max="14" value="2" data-calc-nights></label>
+        <dl class="calc__rows">
+          <div><dt data-i18n="dxPortal">Sui portali (stima)</dt><dd><s data-calc-portal></s></dd></div>
+          <div><dt data-i18n="dxDirect">Dal sito</dt><dd class="calc__big" data-calc-direct></dd></div>
+          <div class="calc__save"><dt data-i18n="dxSave">Risparmi</dt><dd data-calc-save></dd></div>
+        </dl>
+        <a class="btn btn--thread" href="prenota.html" data-calc-book><span data-i18n="dxBook">Prenota ora</span> <span aria-hidden="true">→</span></a>
+        <p class="fineprint mono" data-i18n="dxNote">Tariffe dimostrative, calcolate dal motore di prenotazione del sito.</p>
+      </form>
+    </section>
+
+    <!-- 6. WhatsApp walkthrough: a pinned phone plays the guest journey -->
+    <section class="chat" id="whatsapp" data-chat aria-labelledby="chat-title">
+      <div class="chat__pin">
+        <div class="chat__copy">
+          <p class="eyebrow" data-i18n="chEyebrow">Dopo la prenotazione</p>
+          <h2 id="chat-title" class="display" data-i18n-html="chTitle">Nessuno <em>davanti al portone.</em></h2>
+          <p class="section-head__lead" data-i18n="chLead">Su WhatsApp ricevi tutto al momento giusto. Quando sei a dieci minuti, scrivici: un nostro host ti aspetta.</p>
+          <ol class="chat__steps">
+            <li data-chat-step><b data-i18n="chS1">Subito</b><small data-i18n="chS1d">La conferma, con codice e date.</small></li>
+            <li data-chat-step><b data-i18n="chS2">Due giorni prima</b><small data-i18n="chS2d">Indirizzo, orari e come arrivare.</small></li>
+            <li data-chat-step><b data-i18n="chS3">Il giorno dell'arrivo</b><small data-i18n="chS3d">«Sono a dieci minuti» e ti aspettiamo.</small></li>
+            <li data-chat-step><b data-i18n="chS4">Dopo la partenza</b><small data-i18n="chS4d">Un grazie e, se vuoi, una recensione.</small></li>
+          </ol>
+        </div>
+        <div class="phone" role="img" aria-label="Esempio di conversazione WhatsApp con Fabrì 171">
+          <div class="phone__bar"><i class="phone__dot"></i><span data-i18n="phoneTitle">Fabrì 171</span></div>
+          <div class="phone__feed" data-feed>
+            <p class="bubble bubble--in" data-bubble="1" data-i18n="b1">Ciao Anna, la tua prenotazione FBR-K7P2 a Fabrì 171 è confermata: Economy, arrivo sabato 31 ottobre. Due giorni prima ti scriviamo qui con tutte le istruzioni.</p>
+            <p class="bubble bubble--in" data-bubble="2" data-i18n="b2">Ciao Anna, manca poco! Check-in 14:00–23:00. Siamo al civico 171, scala C. Quando sei a circa 10 minuti scrivici qui: un nostro host ti aspetta e ti accompagna in camera.</p>
+            <p class="bubble bubble--out" data-bubble="3" data-i18n="b3g">Siamo a 10 minuti 🙂</p>
+            <p class="bubble bubble--in" data-bubble="3" data-i18n="b3">Perfetto Anna, ti aspettiamo al 171. Il Wi-Fi è gratuito in tutta la struttura. Buon viaggio!</p>
+            <p class="bubble bubble--in" data-bubble="4" data-i18n="b4">Grazie Anna, è stato un piacere averti da Fabrì 171! Se ti sei trovata bene, una recensione ci aiuta molto. La prossima volta prenota direttamente dal nostro sito.</p>
+          </div>
+        </div>
+      </div>
+      <p class="fineprint mono chat__note" data-i18n="phoneNote">Esempio dei messaggi automatici. Testi demo da confermare con il gestore.</p>
+    </section>
+
+    <!-- 7. reviews -->
+    <section class="reviews" id="recensioni" aria-labelledby="rv-title">
+      <header class="section-head">
+        <p class="eyebrow" data-i18n="rvEyebrow">Recensioni</p>
+        <h2 id="rv-title" class="display" data-i18n-html="rvTitle">Cosa dicono <em>gli ospiti.</em></h2>
+        <p class="section-head__lead" data-i18n="rvLead">Punteggi dalla scheda Booking.com, su 10 (ottobre 2026).</p>
+      </header>
+      <ul class="scores" data-scores></ul>
+      <ul class="quotes" data-quotes></ul>
+      <p class="fineprint mono" data-i18n="rvSource">Citazioni dalla scheda Booking.com, da usare con il permesso degli autori.</p>
+    </section>
+
+    <!-- 8. practical info -->
+    <section class="info" id="info" aria-labelledby="info-title">
+      <header class="section-head">
+        <p class="eyebrow" data-i18n="inEyebrow">Prima di arrivare</p>
+        <h2 id="info-title" class="display" data-i18n-html="inTitle">Tutto <em>quello che serve.</em></h2>
+      </header>
+      <dl class="facts">
+        <div><dt class="mono" data-i18n="inCheckIn">Check-in</dt><dd data-i18n="inCheckInV">14:00–23:00. Servono un documento e una carta al check-in.</dd></div>
+        <div><dt class="mono" data-i18n="inCheckOut">Check-out</dt><dd data-i18n="inCheckOutV">Entro le 10:00.</dd></div>
+        <div><dt class="mono" data-i18n="inWhere">Dove</dt><dd><span data-i18n="inWhereV">Via Nicola Fabrizi 171, scala C, Pescara. Mappa</span> <a data-map href="#" target="_blank" rel="noopener">↗</a></dd></div>
+        <div><dt class="mono" data-i18n="inRules">In camera</dt><dd data-i18n="inRulesV">Non fumatori, niente feste. Animali e culla gratuita su richiesta.</dd></div>
+      </dl>
+      <div class="faq">
+        <details><summary data-i18n="faq1q">Come funziona l'arrivo?</summary><p data-i18n="faq1a">Ti scriviamo su WhatsApp due giorni prima. Quando sei a circa dieci minuti, scrivici: un nostro host ti aspetta.</p></details>
+        <details><summary data-i18n="faq2q">Posso arrivare tardi?</summary><p data-i18n="faq2a">Il check-in è fino alle 23:00. Se arrivi dopo, scrivici su WhatsApp prima di partire.</p></details>
+        <details><summary data-i18n="faq3q">Si paga online?</summary><p data-i18n="faq3a">No: in struttura, con contanti o carta, oppure con bonifico anticipato.</p></details>
+        <details><summary data-i18n="faq4q">Posso cancellare?</summary><p data-i18n="faq4a">Cancellazione gratuita fino a 48 ore prima dell'arrivo (proposta demo).</p></details>
+        <details><summary data-i18n="faq5q">Parlate inglese?</summary><p data-i18n="faq5a">Sì: rispondiamo in inglese su WhatsApp e via email.</p></details>
+      </div>
+    </section>
+
+    <!-- 9. closing call to action -->
+    <section class="cta on-dark" aria-labelledby="cta-title">
+      <p class="cta__num" aria-hidden="true">171</p>
+      <h2 id="cta-title" class="display" data-i18n-html="ctaTitle">Pronto? <em>Prenota diretto.</em></h2>
+      <div class="cta__actions">
+        <a class="btn btn--light btn--xl" href="prenota.html"><span data-i18n="ctaBook">Prenota ora</span> <span aria-hidden="true">→</span></a>
+        <a class="btn btn--ghost btn--xl" data-contact="whatsapp" data-keep-text href="#" data-i18n="ctaWa">Scrivici su WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__bottom mono">
+      <span data-i18n="ftAddress">Via Nicola Fabrizi 171, scala C, Pescara</span>
+      <span>CIN IT068028B4IGCFTBHB · <a data-contact="phone" href="#">Telefono</a> · <a data-contact="email" href="#">Email</a></span>
+      <span data-i18n="ftNote">Sito dimostrativo · Punto Due Studio · immagini concept generate con Higgsfield</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <script type="module" src="assets/js/home.js"></script>
+</body>
+</html>

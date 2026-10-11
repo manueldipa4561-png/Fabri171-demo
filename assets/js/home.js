@@ -39,7 +39,7 @@ const bookUrl = (extra = {}) => `prenota.html?${new URLSearchParams({ ...extra, 
 function splitWords() {
   const el = $("[data-words]");
   const words = el.textContent.trim().split(/\s+/);
-  el.replaceChildren(...words.flatMap((w, i) => [h("span", { className: "word", textContent: w }), i < words.length - 1 ? " " : null]));
+  el.replaceChildren(...words.flatMap((w, i) => (i < words.length - 1 ? [h("span", { className: "word", textContent: w }), " "] : [h("span", { className: "word", textContent: w })])));
 }
 
 function applyStatic() {
@@ -57,6 +57,7 @@ function applyStatic() {
   $("[data-map]").href = PROPERTY.mapsUrl;
   splitWords();
   renderRooms();
+  renderMarquee();
   renderScores();
   renderCalc();
 }
@@ -83,8 +84,11 @@ function renderRooms() {
       src: `assets/img/${room.images[0]}-1600.jpg`, srcset: `assets/img/${room.images[0]}-800.jpg 800w, assets/img/${room.images[0]}-1600.jpg 1600w`,
       sizes: "(max-width: 800px) 90vw, 50vw", alt: lang === "en" ? "Concept image of a guest room" : "Immagine concept di una camera", loading: "lazy",
     });
+    // decorative link to the same page as the button below: hidden from keyboard and screen readers
+    const photo = h("a", { className: "room__img", href: bookUrl({ camera: room.id, adulti: String(room.guests) }), tabIndex: -1, ariaHidden: "true" }, img);
+    photo.dataset.cursor = t("rmCursor");
     return h("article", { className: "room", style: { "--room": room.color, "--i": String(i) } },
-      h("div", { className: "room__img" }, img),
+      photo,
       h("div", { className: "room__body" },
         h("div", {}, h("p", { className: "eyebrow room__type", textContent: `${text.type} · ${text.bed}` }), name, h("p", { className: "room__blurb", textContent: text.blurb })),
         h("div", { className: "room__foot" },
@@ -92,6 +96,12 @@ function renderRooms() {
           h("div", { className: "room__price" }, h("b", { textContent: t("rmFrom", { rate: fmtEuro(one.total) }) }), h("small", { textContent: `${t("rmPortal", { portal: fmtEuro(one.portal) })} · ${t("rmUpTo", { n: room.guests })}` })),
           h("a", { className: "btn btn--thread", href: bookUrl({ camera: room.id, adulti: String(room.guests) }) }, h("span", { textContent: t("rmBook") }), h("span", { ariaHidden: "true", textContent: "→" })))));
   }));
+}
+
+// ---------- marquee: two identical groups, the scene slides the track by half its width
+function renderMarquee() {
+  const group = () => h("span", { className: "marquee__group" }, ...["mq1", "mq2", "mq3", "mq4", "mq5"].flatMap((key) => [t(key), h("i", { textContent: "171" })]));
+  $("[data-marquee]").replaceChildren(group(), group());
 }
 
 // ---------- reviews (scores from data.js, quotes from REVIEWS)
@@ -156,6 +166,10 @@ const motionOk = () => window.gsap && window.ScrollTrigger && !reducedMotion;
 const state = { statement: null, rooms: [], bars: [] };
 
 function doorScene({ gsap }) {
+  // intro: the three numerals draw themselves, uncovering the room through them
+  const strokes = $$(".door__num path");
+  gsap.set(strokes, { strokeDashoffset: 1 });
+  gsap.to(strokes, { strokeDashoffset: 0, duration: 1.5, stagger: 0.22, ease: "power2.inOut", delay: 0.15 });
   const tl = gsap.timeline({
     defaults: { ease: "none" },
     scrollTrigger: {
@@ -234,9 +248,11 @@ function buildDynamicMotion() {
   state.rooms = [];
   if (matchMedia("(min-width: 801px)").matches) {
     cards.forEach((card, i) => {
+      // the photo drifts inside its frame while the card passes
+      state.rooms.push(gsap.fromTo($("img", card), { yPercent: -8, scale: 1.2 }, { yPercent: 8, ease: "none", scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: true } }));
       const next = cards[i + 1];
       if (!next) return;
-      state.rooms.push(gsap.to(card, { scale: 0.94, filter: "brightness(0.92)", ease: "none", scrollTrigger: { trigger: next, start: "top 75%", end: "top 25%", scrub: true } }));
+      state.rooms.push(gsap.to(card, { scale: 0.94, ease: "none", scrollTrigger: { trigger: next, start: "top 75%", end: "top 25%", scrub: true } }));
     });
   }
   state.bars.forEach((tween) => { tween.scrollTrigger?.kill(); tween.kill(); });
@@ -253,6 +269,10 @@ function initMotion() {
   doorScene(libs);
   routeScene(libs);
   chatScene(libs);
+  // headings rise into place once, the marquee slides with the scroll
+  $$(".display").filter((el) => !el.closest(".door")).forEach((el) =>
+    libs.gsap.from(el, { y: 48, opacity: 0, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 88%", once: true } }));
+  libs.gsap.to("[data-marquee]", { xPercent: -50, ease: "none", scrollTrigger: { trigger: ".marquee", start: "top bottom", end: "bottom top", scrub: 0.6 } });
   buildDynamicMotion();
   const refresh = () => libs.ScrollTrigger.refresh();
   document.fonts?.ready.then(refresh);

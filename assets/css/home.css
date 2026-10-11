@@ -182,7 +182,25 @@
 .cta__actions { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 40px; }
 .footer { margin-top: 0; }
 
+/* ---------- marquee: moves with the scroll */
+.marquee { overflow: hidden; padding: clamp(18px, 4svh, 40px) 0; border-block: 1px solid var(--line); }
+.marquee__track { display: flex; width: max-content; will-change: transform; }
+.marquee__group { display: flex; align-items: center; gap: clamp(24px, 4vw, 64px); padding-right: clamp(24px, 4vw, 64px); font: 400 clamp(40px, 6.5vw, 104px) / 1.1 var(--serif); letter-spacing: -0.02em; white-space: nowrap; }
+.marquee__group i { color: var(--terra); font-weight: 300; }
+
+/* ---------- custom cursor (desktop pointers only) */
+.cursor { position: fixed; top: 0; left: 0; z-index: 90; display: grid; place-items: center; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--terra); color: var(--paper); opacity: 0; pointer-events: none; transition: width 0.5s var(--ease), height 0.5s var(--ease), margin 0.5s var(--ease), opacity 0.3s; }
+.cursor.is-on { opacity: 1; }
+.cursor.is-label { width: 92px; height: 92px; margin: -46px 0 0 -46px; }
+.cursor__label { font: 500 11px / 1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; opacity: 0; transition: opacity 0.3s; }
+.cursor.is-label .cursor__label { opacity: 1; }
+@media (hover: none), (pointer: coarse) { .cursor { display: none; } }
+
+.door__num path { stroke-dasharray: 1; }
+.room__img { display: block; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .cursor { display: none; }
   .faq summary::after, .route__steps li, .chat__steps li { transition: none; }
 }

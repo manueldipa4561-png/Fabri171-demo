@@ -64,9 +64,9 @@
             <mask id="door-mask" maskUnits="userSpaceOnUse" x="-6000" y="-6000" width="13600" height="12900">
               <rect x="-6000" y="-6000" width="13600" height="12900" fill="#fff"/>
               <g class="door__num" fill="none" stroke="#000" stroke-width="118" stroke-linejoin="bevel">
-                <path d="M520 335 L590 275 V685"/>
-                <path d="M700 287 H920 L785 685"/>
-                <path d="M1010 335 L1080 275 V685"/>
+                <path pathLength="1" d="M520 335 L590 275 V685"/>
+                <path pathLength="1" d="M700 287 H920 L785 685"/>
+                <path pathLength="1" d="M1010 335 L1080 275 V685"/>
               </g>
             </mask>
           </defs>
@@ -101,6 +101,8 @@
       <p class="eyebrow" id="st-label" data-i18n="stEyebrow">Il civico 171</p>
       <p class="statement__text" data-words data-i18n="stText">Una porta al civico 171, scala C. Dentro: lino, cementine e camere che sanno di casa. Fuori: la stazione a ottocento metri e il mare a quattro minuti.</p>
     </section>
+
+    <div class="marquee" aria-hidden="true"><div class="marquee__track" data-marquee></div></div>
 
     <!-- 3. route walkthrough: the line draws itself as you scroll -->
     <section class="route" id="percorso" data-route aria-labelledby="route-title">
@@ -256,6 +258,8 @@
       <span data-i18n="ftNote">Sito dimostrativo · Punto Due Studio · immagini concept generate con Higgsfield</span>
     </div>
   </footer>
+
+  <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>

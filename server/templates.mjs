@@ -29,17 +29,17 @@ export const TEMPLATES = {
   },
   checkout_thanks: {
     order: ["name", "property", "review"],
-    it: "Grazie {name}, è stato un piacere averti da {property}! Se ti sei trovato bene, una recensione ci aiuta molto: {review}. La prossima volta prenota direttamente dal nostro sito.",
+    it: "Grazie {name}, è stato un piacere averti da {property}! Se il soggiorno ti è piaciuto, una recensione ci aiuta molto: {review}. La prossima volta prenota direttamente dal nostro sito.",
     en: "Thank you {name}, it was a pleasure having you at {property}! If you enjoyed your stay, a review helps us a lot: {review}. Next time, book directly on our website.",
   },
   host_new_booking: {
     order: ["code", "name", "rooms", "checkIn", "checkOut", "total", "phone"],
-    it: "Nuova prenotazione diretta {code}: {name}, {rooms}, dal {checkIn} al {checkOut}, {total}. Zero commissioni. Telefono ospite: {phone}.",
+    it: "Nuova prenotazione diretta {code}: {name}, {rooms}, da {checkIn} a {checkOut}, {total}. Zero commissioni. Telefono ospite: {phone}.",
     en: "New direct booking {code}: {name}, {rooms}, {checkIn} to {checkOut}, {total}. No commission. Guest phone: {phone}.",
   },
   host_conflict: {
     order: ["rooms", "checkIn", "checkOut", "channel", "other"],
-    it: "ATTENZIONE: doppia prenotazione in {rooms} dal {checkIn} al {checkOut} ({channel} e {other}). Chiudi le date sul portale o contatta l'ospite.",
+    it: "ATTENZIONE: doppia prenotazione in {rooms} da {checkIn} a {checkOut} ({channel} e {other}). Chiudi le date sul portale o contatta l'ospite.",
     en: "WARNING: double booking in {rooms} from {checkIn} to {checkOut} ({channel} and {other}). Close the dates on the portal or contact the guest.",
   },
 };

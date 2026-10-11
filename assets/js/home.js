@@ -1,7 +1,7 @@
 // Fabrì 171 home: language, rooms, price calculator, quick-book form and the scroll scenes.
 // Motion is GSAP + ScrollTrigger + Lenis from the CDN; without them (or with reduced motion) the page shows its end state.
 import { initSite, reducedMotion } from "./site.js";
-import { ROOMS, PROPERTY, REVIEWS, roomById } from "./data.js";
+import { ROOMS, PROPERTY, REVIEWS, GALLERY, roomById } from "./data.js";
 import { addDays, fmtEuro, quote, todayISO } from "./engine.js";
 import { HOME } from "./home-i18n.js";
 
@@ -57,6 +57,7 @@ function applyStatic() {
   $("[data-map]").href = PROPERTY.mapsUrl;
   splitWords();
   renderRooms();
+  renderGallery();
   renderMarquee();
   renderScores();
   renderCalc();
@@ -82,7 +83,7 @@ function renderRooms() {
     const name = h("h3", { className: "room__name", textContent: room.name });
     const img = h("img", {
       src: `assets/img/${room.images[0]}-1600.jpg`, srcset: `assets/img/${room.images[0]}-800.jpg 800w, assets/img/${room.images[0]}-1600.jpg 1600w`,
-      sizes: "(max-width: 800px) 90vw, 50vw", alt: lang === "en" ? "Concept image of a guest room" : "Immagine concept di una camera", loading: "lazy",
+      sizes: "(max-width: 800px) 90vw, 50vw", alt: lang === "en" ? "Photo from the property's public listing" : "Foto dalla scheda pubblica della struttura", loading: "lazy", decoding: "async",
     });
     // decorative link to the same page as the button below: hidden from keyboard and screen readers
     const photo = h("a", { className: "room__img", href: bookUrl({ camera: room.id, adulti: String(room.guests) }), tabIndex: -1, ariaHidden: "true" }, img);
@@ -95,6 +96,18 @@ function renderRooms() {
           h("ul", { className: "room__feat" }, ...text.features.map((f) => h("li", { textContent: f }))),
           h("div", { className: "room__price" }, h("b", { textContent: t("rmFrom", { rate: fmtEuro(one.total) }) }), h("small", { textContent: `${t("rmPortal", { portal: fmtEuro(one.portal) })} · ${t("rmUpTo", { n: room.guests })}` })),
           h("a", { className: "btn btn--thread", href: bookUrl({ camera: room.id, adulti: String(room.guests) }) }, h("span", { textContent: t("rmBook") }), h("span", { ariaHidden: "true", textContent: "→" })))));
+  }));
+}
+
+// ---------- details gallery: real photos, each with its true aspect ratio so nothing jumps while loading
+function renderGallery() {
+  $("[data-gallery-track]").replaceChildren(...GALLERY.map((p) => {
+    const caption = p[lang];
+    const img = h("img", {
+      src: `assets/img/${p.id}-1600.jpg`, srcset: `assets/img/${p.id}-800.jpg 800w, assets/img/${p.id}-1600.jpg 1600w`,
+      sizes: "(max-width: 800px) 80vw, 45vw", width: p.w, height: p.h, alt: caption, loading: "lazy", decoding: "async", draggable: false,
+    });
+    return h("figure", { className: "gal", style: { "--ar": String(p.w / p.h) } }, img, h("figcaption", { textContent: caption }));
   }));
 }
 
@@ -222,6 +235,16 @@ function routeScene({ ScrollTrigger }) {
   draw(0);
 }
 
+// desktop: the pinned strip slides sideways with the scroll; on phones (and without motion) it is a swipeable row
+function galleryScene({ gsap }) {
+  const track = $("[data-gallery-track]");
+  const distance = () => Math.max(0, track.scrollWidth - innerWidth);
+  const SCROLL_PER_PIXEL = 0.55; // the strip glides faster than the page scrolls, so nine photos do not take six screens
+  gsap.matchMedia().add("(min-width: 801px)", () => {
+    gsap.to(track, { x: () => -distance(), ease: "none", scrollTrigger: { trigger: ".gallery", start: "top top", end: () => `+=${Math.round(distance() * SCROLL_PER_PIXEL)}`, pin: ".gallery__pin", scrub: 0.5, invalidateOnRefresh: true } });
+  });
+}
+
 function chatScene({ ScrollTrigger }) {
   const bubbles = $$("[data-bubble]");
   const steps = $$("[data-chat-step]");
@@ -268,6 +291,7 @@ function initMotion() {
   const libs = { gsap: window.gsap, ScrollTrigger: window.ScrollTrigger };
   doorScene(libs);
   routeScene(libs);
+  galleryScene(libs);
   chatScene(libs);
   // headings rise into place once, the marquee slides with the scroll
   $$(".display").filter((el) => !el.closest(".door")).forEach((el) =>

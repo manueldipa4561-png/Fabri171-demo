@@ -2,7 +2,7 @@
 
 Demo of a direct-booking website for **Fabrì 171** (Via Nicola Fabrizi 171, scala C, Pescara). The property sells almost only through Booking.com. This demo shows the owner a site with Awwwards/Godly-level scroll animation and, behind it, a **real local booking system**: direct bookings that block the same dates on Booking.com, Booking.com reservations that block the site, and WhatsApp messages that run by themselves.
 
-> Everything runs on `localhost` only. Nothing is deployed, no real WhatsApp message is sent, no payment is taken. Photos are AI **concept images**, not the real rooms.
+> Everything runs on `localhost` only. Nothing is deployed, no real WhatsApp message is sent, no payment is taken. Photos come from the property's public listings (hotels-in-it and Booking.com) and are used for this demo; which photo shows which room type is a placeholder.
 
 ## Run it
 
@@ -43,7 +43,7 @@ assets/
   js/booking.js     booking flow          js/booking-i18n.js  its copy (IT/EN)
   js/admin.js       host console          js/home-i18n.js     home copy (IT/EN)
   js/site.js        Lenis, nav, menu, contacts, WhatsApp links
-  img/              JPEG renditions of the concept images
+  img/              JPEG renditions (800 px and native size) of the listing photos: hero, rooms, details gallery
 server/
   index.mjs         entry point (timers: WhatsApp tick, channel sync, mock pull)
   app.mjs           HTTP server and routes, security checks
@@ -78,7 +78,7 @@ The server listens on `127.0.0.1` only, rejects requests whose `Host` is not loc
 - [ ] The check-in procedure written in the WhatsApp messages (a host meets the guest, with the guest's "I'm 10 minutes away" message) is a demo proposal.
 - [ ] Rating: category scores are from the Booking.com listing (October 2026); the overall 8.5 from 385 reviews comes from an aggregator that mirrors it. Verify on the live listing.
 - [ ] Permission to quote the four guest reviews, or collect new ones directly.
-- [ ] Official photos. Today's images are AI concept images (the window view is not Pescara).
+- [ ] Photos: the site uses photos from the public listings for the demo. Get the owner's permission or official photos, and tell me which photo shows which room (the room cards use three listing photos as placeholders).
 - [ ] Policies shown on the site: pets on request, free cot, non-smoking, tourist tax, ID and card at check-in.
 - [ ] WhatsApp Business account, number, Meta-approved templates (texts in `docs/automation.md`), privacy notice for the WhatsApp opt-in.
 - [ ] Booking.com: check that "Sync calendars" (iCal) is available for this property and region; paste the export links from the console. For instant sync use a channel manager with Booking.com's connectivity API.
@@ -90,4 +90,4 @@ The server listens on `127.0.0.1` only, rejects requests whose `Host` is not loc
 CIN IT068028B4IGCFTBHB · Check-in 14:00 to 23:00 (photo ID and credit card at check-in) · Check-out by 10:00 · Booking.com location score 9.5.
 
 ---
-Design and development: Punto Due Studio. Concept images generated with Higgsfield (GPT Image 2.5).
+Design and development: Punto Due Studio. Photos: the property's public listings.

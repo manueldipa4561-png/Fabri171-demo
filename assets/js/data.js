@@ -39,7 +39,7 @@ export const ROOMS = [
     dark: false,
     blurb: "Il punto di partenza giusto: letto matrimoniale (o due singoli), scrivania, aria condizionata e un bagno privato con doccia walk-in e bidet. Dalla stazione al mare si fa tutto a piedi.",
     features: ["Aria condizionata", "Bagno privato con bidet", "Scrivania", "TV satellitare"],
-    images: ["bed"], // concept images from Higgsfield (see README): swap in the owner's photos
+    images: ["room-economy"], // photos from the public listings; which photo is which room is a placeholder (see README)
     en: {
       type: "Economy double or twin",
       bed: "Double bed or two singles",
@@ -59,7 +59,7 @@ export const ROOMS = [
     dark: false,
     blurb: "Per tre: un letto king (o due singoli) e un divano letto, con lo spazio che gli ospiti ricordano. Accappatoi e biancheria sempre pronti.",
     features: ["Divano letto", "Accappatoi", "Bagno privato con bidet", "Aria condizionata"],
-    images: ["hero"],
+    images: ["room-triple"],
     en: {
       type: "Comfort triple",
       bed: "King bed + sofa bed, or two singles + sofa bed",
@@ -79,7 +79,7 @@ export const ROOMS = [
     dark: false,
     blurb: "Per famiglie e piccoli gruppi: letto king (o due singoli) e due divani letto. Culla gratuita su richiesta e bollitore in camera.",
     features: ["Due divani letto", "Culla gratuita su richiesta", "Bollitore", "Aria condizionata"],
-    images: ["hero"],
+    images: ["room-quad"],
     en: {
       type: "Quadruple",
       bed: "King bed + 2 sofa beds, or two singles + 2 sofa beds",
@@ -95,6 +95,20 @@ export const REVIEWS = [
   { who: "Giannina", from: "United States", text: "Wonderful, clean, comfortable room. Only a three minute walk to the beach." },
   { who: "Ekaterine", from: "Georgia", text: "The owner was very responsive and replied to messages quickly." },
   { who: "Silviu", from: "Romania", text: "2 minutes walk to the central square and 5 minutes walk to the beach." },
+];
+
+// Details of the rooms, in gallery order. Photos come from the public listings (Booking.com and aggregators);
+// w and h are the real pixel sizes, used for the aspect ratio so the page never jumps while images load.
+export const GALLERY = [
+  { id: "g-breakfast", w: 1280, h: 853, it: "Colazione in camera", en: "Breakfast in the room" },
+  { id: "g-olive", w: 1151, h: 1280, it: "Lino verde oliva e plaid scuro", en: "Olive linen and a dark throw" },
+  { id: "g-tiles", w: 3000, h: 2000, it: "Cementine blu e ocra", en: "Blue and ochre cement tiles" },
+  { id: "g-coffee", w: 3000, h: 2292, it: "Caffè sul vassoio di rattan", en: "Coffee on a rattan tray" },
+  { id: "g-lamp", w: 3000, h: 2000, it: "Luce calda sul comodino", en: "Warm light by the bed" },
+  { id: "g-chair", w: 1280, h: 853, it: "Sedia intrecciata", en: "Woven chair" },
+  { id: "g-croissant", w: 3000, h: 2000, it: "Cornetto e biscotti", en: "Croissant and biscuits" },
+  { id: "g-book", w: 1280, h: 853, it: "Un libro sul letto", en: "A book on the bed" },
+  { id: "g-tiles-overhead", w: 1280, h: 895, it: "Asciugamani sulle cementine", en: "Towels on the tiles" },
 ];
 
 export const roomById = (id) => ROOMS.find((r) => r.id === id);

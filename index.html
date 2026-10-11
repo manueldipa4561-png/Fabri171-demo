@@ -57,7 +57,7 @@
     <!-- 1. the door: the "171" is a window onto the room; scrolling zooms through it -->
     <section class="door" id="top" data-door aria-labelledby="hero-title">
       <div class="door__stage">
-        <img class="door__photo" src="assets/img/hero-1600.jpg" srcset="assets/img/hero-800.jpg 800w, assets/img/hero-1600.jpg 1600w, assets/img/hero-full.jpg 2048w" sizes="100vw" width="2048" height="1360" alt="Immagine concept: camera con biancheria in lino, vassoio di rattan con caffè e cornetto, pavimento in cementine e luce del mattino" fetchpriority="high">
+        <img class="door__photo" src="assets/img/hero-1600.jpg" srcset="assets/img/hero-800.jpg 800w, assets/img/hero-1600.jpg 1280w" sizes="100vw" width="1280" height="858" alt="Letto con cuscini marroni e grigi, vassoio di rattan con una tazzina e un libro aperto, comodino nero" fetchpriority="high">
         <div class="door__shade"></div>
         <svg class="door__cover" viewBox="0 0 1600 900" aria-hidden="true" focusable="false">
           <defs>
@@ -156,7 +156,18 @@
         <p class="section-head__lead" data-i18n="rmLead">Tariffe dimostrative. Prenotando dal sito il prezzo è circa il 10% più basso che sui portali.</p>
       </header>
       <div class="rooms__stack" data-rooms></div>
-      <p class="fineprint mono" data-i18n="rmImgNote">Immagine concept: sostituire con le foto reali della struttura.</p>
+    </section>
+
+    <!-- 4b. details: a pinned strip of real photos that slides sideways as you scroll -->
+    <section class="gallery" id="galleria" data-gallery aria-labelledby="gal-title">
+      <div class="gallery__pin">
+        <header class="section-head">
+          <p class="eyebrow" data-i18n="gaEyebrow">Dentro</p>
+          <h2 id="gal-title" class="display" data-i18n-html="gaTitle">Il letto, il caffè, <em>le cementine.</em></h2>
+        </header>
+        <div class="gallery__track" data-gallery-track></div>
+      </div>
+      <p class="fineprint mono" data-i18n="photoNote">Foto dalle schede pubbliche della struttura, da sostituire con le foto ufficiali del gestore.</p>
     </section>
 
     <!-- 5. direct vs portal, with the real booking engine behind the numbers -->
@@ -255,7 +266,7 @@
     <div class="footer__bottom mono">
       <span data-i18n="ftAddress">Via Nicola Fabrizi 171, scala C, Pescara</span>
       <span>CIN IT068028B4IGCFTBHB · <a data-contact="phone" href="#">Telefono</a> · <a data-contact="email" href="#">Email</a></span>
-      <span data-i18n="ftNote">Sito dimostrativo · Punto Due Studio · immagini concept generate con Higgsfield</span>
+      <span data-i18n="ftNote">Sito dimostrativo · Punto Due Studio · foto dalle schede pubbliche della struttura</span>
     </div>
   </footer>
 

@@ -14,7 +14,7 @@ Read on 11 October 2026. Every number below comes from a public page; nothing is
 | Other scores | 8.5 from 385 reviews (aggregator); Expedia 8.6; Tripadvisor 3.2/5 from 9 reviews, ranked 31 of 39 | [hotels-in-it](https://www.hotels-in-it.com/en/h/fabri171.html), [Expedia](https://www.expedia.com/Pescara-Hotels-Fabri-171.h42513532.Hotel-Information), [Tripadvisor](https://www.tripadvisor.com/Hotel_Review-g187770-d17580951-Reviews-Fabri_171-Pescara_Province_of_Pescara_Abruzzo.html) |
 | Policies | non-smoking, no parties, pets on request (charges may apply), cot free on request, no extra beds, cash accepted | Booking.com |
 
-The photos on the listings show cream linen, dark cushions, woven rattan trays with coffee and croissants, patterned cement tiles in blue and ochre, amber woven lamps and taupe plaster walls. That became the palette and the image prompts.
+The 65 photos in the [hotels-in-it gallery](https://www.hotels-in-it.com/en/h/fabri171.html) (mirroring the Booking.com set) show sage and olive linen, dark teal throws, charcoal cushions, woven rattan and wire chairs, trays with croissants and orange juice, warm bedside lamps and cement tiles in blue and ochre. The site uses nine of them as a details gallery, one as the hero and three as room-card placeholders: the listing does not say which photo shows which room type, so that mapping must be confirmed with the owner. Most photos are 1280 px wide and a few are 3000 px; none is upscaled. The tile blue and honey in the palette come from these photos.
 
 ## What guests say, and what the site does about it
 

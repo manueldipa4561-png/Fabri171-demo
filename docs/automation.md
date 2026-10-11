@@ -97,7 +97,7 @@ Variables are positional. Each text starts and ends with words, as Meta requires
 - it: ATTENZIONE: doppia prenotazione in {{1}} dal {{2}} al {{3}} ({{4}} e {{5}}). Chiudi le date sul portale o contatta l'ospite.
 - en: WARNING: double booking in {{1}} from {{2}} to {{3}} ({{4}} and {{5}}). Close the dates on the portal or contact the guest.
 
-`metaText(kind, lang)` in `server/whatsapp.mjs` prints these from the source, so the file and Meta never drift. Meta reviews templates itself and may ask for edits: change `server/templates.mjs`, never the approved text in one place only.
+`metaText(kind, lang)` in `assets/js/api/whatsapp.js` prints these from the source, so the file and Meta never drift. Meta reviews templates itself and may ask for edits: change `assets/js/api/templates.js`, never the approved text in one place only.
 
 ## API
 

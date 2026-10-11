@@ -10,7 +10,7 @@ Needs Node 22+ (tested on Node 24). No dependencies, no build step.
 
 ```bash
 npm start        # http://localhost:4171
-npm test         # 49 tests: engine, iCal, WhatsApp, channel sync, HTTP security
+npm test         # 55 tests: engine, iCal, WhatsApp, channel sync, HTTP security
 ```
 
 | URL | What it is |
@@ -38,7 +38,16 @@ assets/
   css/admin.css     host console panels and WhatsApp conversations
   js/data.js        property, rooms, reviews (one place to edit content)
   js/engine.js      pure booking logic shared by browser and server (availability, seats, prices, validation, dates)
-  js/store.js       browser client for the API
+  js/store.js       browser client for the API (falls back to js/demo-backend.js when there is no server)
+  js/demo-backend.js  the same API answered inside the browser, for static hosts such as Netlify
+  js/api/           the booking API with no Node in it, run by the server and by the demo backend:
+    core.js           routes, validation, WhatsApp scheduling, channel sync
+    ics.js            iCal build and parse
+    channels.js       channel config, export, import (reconcile), mock Booking.com
+    whatsapp.js       scheduling, Cloud API payloads, delivery with retries
+    templates.js      message copy (IT/EN) and the check-in text
+    seed.js           deterministic demo data
+    ids.js            uuid and hash helpers that work in Node and in the browser
   js/home.js        home: language, rooms, calculator, GSAP scenes
   js/booking.js     booking flow          js/booking-i18n.js  its copy (IT/EN)
   js/admin.js       host console          js/home-i18n.js     home copy (IT/EN)
@@ -46,18 +55,17 @@ assets/
   img/              JPEG renditions (800 px and native size) of the listing photos: hero, rooms, details gallery
 server/
   index.mjs         entry point (timers: WhatsApp tick, channel sync, mock pull)
-  app.mjs           HTTP server and routes, security checks
+  app.mjs           Node HTTP server, static pages, security checks (wraps the API in js/api/core.js)
   db.mjs            JSON-file storage with a write queue
-  ics.mjs           iCal build and parse
-  channels.mjs      channel config, export, import (reconcile), mock Booking.com
-  whatsapp.mjs      scheduling, Cloud API payloads, delivery with retries
-  templates.mjs     message copy (IT/EN) and the check-in text
-  seed.mjs          deterministic demo data
 tests/              node --test
 docs/               ricerca.md, automation.md
 ```
 
 Libraries (CDN, pinned): GSAP 3.13.0 with ScrollTrigger, Lenis 1.1.13. Fonts: Fraunces, Instrument Sans, DM Mono (Google Fonts). If the CDNs do not respond, or the visitor prefers reduced motion, the home shows its end state with no pinned scenes.
+
+## Static hosting (Netlify, GitHub Pages)
+
+The pages also work on a host that only serves files. When a page finds no API (the first request to `/api/availability` is not answered in JSON), `js/store.js` loads `js/demo-backend.js`, which answers the same routes inside the browser with the same booking core. The data lives in the visitor's `localStorage` and starts from a fresh seed every day; the manager panel says "demo nel browser". Nothing leaves the browser and no WhatsApp message is sent. This is for showing the demo: real bookings need the Node server.
 
 ## Design concept
 
